@@ -1,9 +1,9 @@
 import express, { Express } from 'express';
 import morgan from 'morgan';
 import authRoutes from './infrastructure/routes/auth';
+import userRoutes from './infrastructure/routes/user';
 import sequelize from './infrastructure/db/config/sequelize';
 import { models } from './infrastructure/db/models';
-import { authMiddleWare } from './middleware/authMiddleware';
 
 async function runApp() {
   const app: Express = express();
@@ -27,6 +27,7 @@ async function runApp() {
 
   // * routes
   app.use(authRoutes);
+  app.use(userRoutes);
 
   return app;
 }

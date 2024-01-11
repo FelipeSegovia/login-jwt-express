@@ -26,12 +26,3 @@ export const authMiddleWare = (
     return res.status(401).json({ message: 'Token no válido.' });
   }
 };
-
-export const publicMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  console.log('hgolaa');
-  next();
-};

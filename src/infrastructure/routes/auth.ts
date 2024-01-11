@@ -1,24 +1,18 @@
-import { UserUseCase } from '../../application/userUseCase';
 import { Router } from 'express';
 import { UserRepositoryImpl } from '../repositories/userRepository';
-import { UserController } from '../controller/userController';
-import {
-  authMiddleWare,
-  publicMiddleware,
-} from '../../middleware/authMiddleware';
+import { AuthController } from '../controller/authController';
+import { AuthUseCase } from '../../application/authUseCase';
 
 const router: Router = Router();
 
 const userRepo = new UserRepositoryImpl();
 
-const userUseCase = new UserUseCase(userRepo);
+const authUserCase = new AuthUseCase(userRepo);
 
-const userController = new UserController(userUseCase);
+const authController = new AuthController(authUserCase);
 
-router.post('/signup', userController.create);
+router.post('/signup', authController.create);
 
-router.post('/signin', userController.login);
-
-router.get('/users', authMiddleWare, userController.showAll);
+router.post('/signin', authController.login);
 
 export default router;
